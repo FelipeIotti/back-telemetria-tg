@@ -11,5 +11,5 @@ app.register(fastifyJwt, {
 app.register(appRoutes);
 
 app
-  .listen({ port: env.PORT })
+  .listen({ host: "0.0.0.0", port: env.PORT })
   .then(() => console.log("Server is running! 🚀 \nOn port:" + env.PORT));
