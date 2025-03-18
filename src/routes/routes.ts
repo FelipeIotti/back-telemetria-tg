@@ -17,7 +17,7 @@ export async function appRoutes(app: FastifyInstance) {
   });
   app.post("/auth", auth);
 
-  app.get("/base-data", { onRequest: [verifyJWT] }, listBaseData);
+  app.get("/base-data", listBaseData);
   app.post("/base-data", { onRequest: [verifyJWT] }, createBaseData);
   app.get("/base-data/last", { onRequest: [verifyJWT] }, getLastBaseData);
 
