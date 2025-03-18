@@ -3,7 +3,7 @@ import fastify from "fastify";
 import { env } from "./env";
 import { appRoutes } from "./routes/routes";
 
-const app = fastify();
+const app = fastify({ trustProxy: false });
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
