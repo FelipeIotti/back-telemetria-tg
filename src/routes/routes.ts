@@ -18,7 +18,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.post("/auth", auth);
 
   app.get("/base-data", listBaseData);
-  app.post("/base-data", { onRequest: [verifyJWT] }, createBaseData);
+  app.post("/base-data", createBaseData);
   app.get("/base-data/last", { onRequest: [verifyJWT] }, getLastBaseData);
 
   app.get("/tires", { onRequest: [verifyJWT] }, listTires);
