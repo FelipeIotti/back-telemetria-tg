@@ -7,6 +7,7 @@ import { createGps } from "../controllers/gps/create";
 import { deleteAllGps } from "../controllers/gps/deleteAll";
 import { getLastGps } from "../controllers/gps/get-last";
 import { listGps } from "../controllers/gps/list";
+import { createMaster } from "../controllers/master/create";
 import { createRaster } from "../controllers/raster/create";
 import { getLastRaster } from "../controllers/raster/get-last";
 import { listRaster } from "../controllers/raster/list";
@@ -36,4 +37,6 @@ export async function appRoutes(app: FastifyInstance) {
   app.post("/gps", createGps);
   app.get("/gps/last", getLastGps);
   app.delete("/gps", deleteAllGps);
+
+  app.post("/master", createMaster);
 }
