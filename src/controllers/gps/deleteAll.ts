@@ -6,5 +6,6 @@ export async function deleteAllGps(
   response: FastifyReply
 ) {
   const baseData = await knex("gps").delete();
+  //
   return baseData;
 }
