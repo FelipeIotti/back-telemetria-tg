@@ -1,3 +1,4 @@
+import fastifyCors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
 import { env } from "./env";
@@ -8,6 +9,12 @@ const app = fastify({ trustProxy: false });
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
 });
+
+app.register(fastifyCors, {
+  origin: "*", // 👈 libera para qualquer origem
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+});
+
 app.register(appRoutes);
 
 app
