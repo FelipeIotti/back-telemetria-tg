@@ -51,42 +51,42 @@ export async function createMaster(
     temp_tire_fr,
   } = createTiresSchema.parse(request.body);
 
-  await knex("tires").insert({
-    id: crypto.randomUUID(),
-    press_tire_bl,
-    press_tire_br,
-    press_tire_fl,
-    press_tire_fr,
-    temp_tire_bl,
-    temp_tire_br,
-    temp_tire_fl,
-    temp_tire_fr,
-  });
-  await knex("base_data").insert({
-    id: crypto.randomUUID(),
-    velocity,
-    fuel,
-    temperature,
-    rpm,
-  });
-
-  await knex("gps").insert({
-    id: crypto.randomUUID(),
-    latitude,
-    longitude,
-    velocity,
-  });
-
-  await knex("raster").insert({
-    id: crypto.randomUUID(),
-    velocity: !!velocity,
-    temperature: !!temperature,
-    fuel: !!fuel,
-    rpm: !!rpm,
-    tpms_fr,
-    tpms_fl,
-    tpms_br,
-    tpms_bl,
+  await knex.transaction(async (trx) => {
+    await trx("tires").insert({
+      id: crypto.randomUUID(),
+      press_tire_bl,
+      press_tire_br,
+      press_tire_fl,
+      press_tire_fr,
+      temp_tire_bl,
+      temp_tire_br,
+      temp_tire_fl,
+      temp_tire_fr,
+    });
+    await trx("base_data").insert({
+      id: crypto.randomUUID(),
+      velocity,
+      fuel,
+      temperature,
+      rpm,
+    });
+    await trx("gps").insert({
+      id: crypto.randomUUID(),
+      latitude,
+      longitude,
+      velocity,
+    });
+    await trx("raster").insert({
+      id: crypto.randomUUID(),
+      velocity: !!velocity,
+      temperature: !!temperature,
+      fuel: !!fuel,
+      rpm: !!rpm,
+      tpms_fr,
+      tpms_fl,
+      tpms_br,
+      tpms_bl,
+    });
   });
 
   return response.status(201).send("success");

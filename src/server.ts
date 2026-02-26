@@ -2,6 +2,7 @@ import fastifyCors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
 import { env } from "./env";
+import { knex } from "./database";
 import { appRoutes } from "./routes/routes";
 
 const app = fastify({ trustProxy: false });
@@ -17,6 +18,19 @@ app.register(fastifyCors, {
 
 app.register(appRoutes);
 
-app
-  .listen({ host: "0.0.0.0", port: env.PORT })
-  .then(() => console.log("Server is running! 🚀 \nOn port:" + env.PORT));
+async function start() {
+  if (env.DATABASE_CLIENT === "pg") {
+    try {
+      await knex.raw("select 1");
+      console.log("✅ Database connection OK");
+    } catch (err) {
+      console.error("❌ Database connection failed:", err);
+      process.exit(1);
+    }
+  }
+
+  await app.listen({ host: "0.0.0.0", port: env.PORT });
+  console.log("Server is running! 🚀 \nOn port:" + env.PORT);
+}
+
+start();
