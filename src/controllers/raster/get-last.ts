@@ -5,6 +5,10 @@ export async function getLastRaster(
   request: FastifyRequest,
   response: FastifyReply
 ) {
-  const raster = await knex("raster").select().first();
-  return raster;
+  const raster = await knex("raster")
+    .select()
+    .orderBy("created_at", "desc")
+    .first();
+
+  return raster || { message: "No data found" };
 }

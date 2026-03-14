@@ -17,10 +17,10 @@ export const config: Knex.Config = {
   useNullAsDefault: true,
   ...(env.DATABASE_CLIENT === "pg" && {
     pool: {
-      min: 0,
-      max: 3,
+      min: 2,
+      max: 10,
       acquireTimeoutMillis: 60000,
-      idleTimeoutMillis: 10000,
+      idleTimeoutMillis: 30000,
       reapIntervalMillis: 1000,
     },
   }),

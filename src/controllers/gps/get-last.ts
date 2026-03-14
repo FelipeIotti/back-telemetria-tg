@@ -5,6 +5,10 @@ export async function getLastGps(
   request: FastifyRequest,
   response: FastifyReply
 ) {
-  const baseData = await knex("gps").select().first();
-  return baseData;
+  const gps = await knex("gps")
+    .select()
+    .orderBy("created_at", "desc")
+    .first();
+
+  return gps || { message: "No data found" };
 }

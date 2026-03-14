@@ -1,5 +1,4 @@
 import { FastifyInstance } from "fastify";
-import { auth } from "../controllers/authenticate/auth";
 import { createBaseData } from "../controllers/base-data/create";
 import { getLastBaseData } from "../controllers/base-data/get-last";
 import { listBaseData } from "../controllers/base-data/list";
@@ -19,7 +18,6 @@ export async function appRoutes(app: FastifyInstance) {
   app.addHook("preHandler", async (request, response) => {
     console.log(`[${request.method}] ${request.url}`);
   });
-  app.post("/auth", auth);
 
   app.get("/base-data", listBaseData);
   app.post("/base-data", createBaseData);

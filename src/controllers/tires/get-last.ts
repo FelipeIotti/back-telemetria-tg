@@ -5,6 +5,10 @@ export async function getLastTires(
   request: FastifyRequest,
   response: FastifyReply
 ) {
-  const baseData = await knex("tires").select().first();
-  return baseData;
+  const tires = await knex("tires")
+    .select()
+    .orderBy("created_at", "desc")
+    .first();
+
+  return tires || { message: "No data found" };
 }

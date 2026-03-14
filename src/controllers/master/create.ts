@@ -1,34 +1,11 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
 import { knex } from "../../database";
+import { createMasterSchema } from "../../schemas/master";
 
 export async function createMaster(
   request: FastifyRequest,
   response: FastifyReply
 ) {
-  const createTiresSchema = z.object({
-    latitude: z.number(),
-    longitude: z.number(),
-    velocity: z.number(),
-    fuel: z.string(),
-    temperature: z.number(),
-    rpm: z.number(),
-    tpms_fr: z.boolean(),
-    tpms_fl: z.boolean(),
-    tpms_br: z.boolean(),
-    tpms_bl: z.boolean(),
-
-    press_tire_bl: z.number(),
-    press_tire_br: z.number(),
-    press_tire_fl: z.number(),
-    press_tire_fr: z.number(),
-
-    temp_tire_bl: z.number(),
-    temp_tire_br: z.number(),
-    temp_tire_fl: z.number(),
-    temp_tire_fr: z.number(),
-  });
-
   const {
     latitude,
     longitude,
@@ -44,12 +21,11 @@ export async function createMaster(
     press_tire_br,
     press_tire_fl,
     press_tire_fr,
-
     temp_tire_bl,
     temp_tire_br,
     temp_tire_fl,
     temp_tire_fr,
-  } = createTiresSchema.parse(request.body);
+  } = createMasterSchema.parse(request.body);
 
   await knex.transaction(async (trx) => {
     await trx("tires").insert({
@@ -89,5 +65,5 @@ export async function createMaster(
     });
   });
 
-  return response.status(201).send("success");
+  return response.status(201).send({ success: true });
 }
