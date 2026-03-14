@@ -1,12 +1,15 @@
 import { FastifyInstance } from "fastify";
+import { clearBaseData } from "../controllers/base-data/clear";
 import { createBaseData } from "../controllers/base-data/create";
 import { getLastBaseData } from "../controllers/base-data/get-last";
 import { listBaseData } from "../controllers/base-data/list";
+import { clearAllData } from "../controllers/clear-all";
 import { createGps } from "../controllers/gps/create";
 import { deleteAllGps } from "../controllers/gps/deleteAll";
 import { getLastGps } from "../controllers/gps/get-last";
 import { listGps } from "../controllers/gps/list";
 import { createMaster } from "../controllers/master/create";
+import { mockData } from "../controllers/mock-data";
 import { createRaster } from "../controllers/raster/create";
 import { getLastRaster } from "../controllers/raster/get-last";
 import { listRaster } from "../controllers/raster/list";
@@ -22,6 +25,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.get("/base-data", listBaseData);
   app.post("/base-data", createBaseData);
   app.get("/base-data/last", getLastBaseData);
+  app.delete("/base-data", clearBaseData);
 
   app.get("/tires", listTires);
   app.post("/tires", createTires);
@@ -37,4 +41,8 @@ export async function appRoutes(app: FastifyInstance) {
   app.delete("/gps", deleteAllGps);
 
   app.post("/master", createMaster);
+
+  app.delete("/clear-all", clearAllData);
+
+  app.post("/mock", mockData);
 }
