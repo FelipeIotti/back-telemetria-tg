@@ -16,6 +16,7 @@ import { listRaster } from "../controllers/raster/list";
 import { createTires } from "../controllers/tires/create";
 import { getLastTires } from "../controllers/tires/get-last";
 import { listTires } from "../controllers/tires/list";
+import { clearTires } from "../controllers/tires/clear";
 
 export async function appRoutes(app: FastifyInstance) {
   app.addHook("preHandler", async (request, response) => {
@@ -30,6 +31,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.get("/tires", listTires);
   app.post("/tires", createTires);
   app.get("/tires/last", getLastTires);
+  app.delete("/tires", clearTires);
 
   app.get("/raster", listRaster);
   app.post("/raster", createRaster);
