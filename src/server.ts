@@ -7,9 +7,7 @@ import { appRoutes } from "./routes/routes";
 const app = fastify({ trustProxy: false });
 
 app.register(fastifyCors, {
-  origin: env.CORS_ORIGIN.split(","),
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  credentials: true,
+  origin: true,
 });
 
 app.register(appRoutes);

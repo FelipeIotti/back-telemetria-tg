@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { knex } from "../database";
 import type { Knex } from "knex";
 import { z } from "zod";
+import { knex } from "../database";
 
 const mockDataSchema = z.object({
   erase: z.boolean(),
@@ -71,6 +71,7 @@ export async function mockData(
   request: FastifyRequest,
   response: FastifyReply
 ) {
+
   const { erase } = mockDataSchema.parse(request.body);
 
   if (erase) {
@@ -82,6 +83,7 @@ export async function mockData(
     });
   }
 
+
   const { baseData, tiresData, gpsData, rasterData } = generateMockData(100);
 
   await knex.transaction(async (trx: Knex.Transaction) => {
@@ -90,6 +92,8 @@ export async function mockData(
     await trx("gps").insert(gpsData);
     await trx("raster").insert(rasterData);
   });
+
+
 
   return response.status(201).send({
     success: true,
