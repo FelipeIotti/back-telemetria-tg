@@ -17,8 +17,10 @@ function generateMockData(count: number) {
   const gpsData = [];
   const rasterData = [];
 
+  const now = Date.now();
+
   for (let i = 0; i < count; i++) {
-    const timestamp = new Date(Date.now() - (count - i) * 1000);
+    const timestamp = new Date(now + i * 1000);
 
     baseData.push({
       id: crypto.randomUUID(),
