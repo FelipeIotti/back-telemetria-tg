@@ -24,7 +24,7 @@ function generateMockData(count: number) {
 
     baseData.push({
       id: crypto.randomUUID(),
-      velocity: Math.floor(randomBetween(0, 180)),
+      velocity: Math.floor(randomBetween(0, 45)),
       fuel: randomBetween(0, 100).toFixed(1),
       temperature: Math.floor(randomBetween(70, 110)),
       rpm: Math.floor(randomBetween(1000, 8000)),
@@ -48,7 +48,7 @@ function generateMockData(count: number) {
       id: crypto.randomUUID(),
       latitude: randomBetween(-23.5, -23.6),
       longitude: randomBetween(-46.6, -46.7),
-      velocity: Math.floor(randomBetween(0, 180)),
+      velocity: Math.floor(randomBetween(0, 45)),
       created_at: timestamp,
     });
 

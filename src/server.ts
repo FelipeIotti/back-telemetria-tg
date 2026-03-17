@@ -1,13 +1,15 @@
 import fastifyCors from "@fastify/cors";
 import fastify from "fastify";
-import { env } from "./env";
 import { knex } from "./database";
+import { env } from "./env";
 import { appRoutes } from "./routes/routes";
 
 const app = fastify({ trustProxy: false });
 
 app.register(fastifyCors, {
   origin: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
 });
 
 app.register(appRoutes);
